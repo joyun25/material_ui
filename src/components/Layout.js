@@ -2,6 +2,12 @@ import { makeStyles } from '@material-ui/core';
 import React from 'react'
 import Drawer from '@material-ui/core/Drawer'
 import Typography from '@material-ui/core/Typography'
+import { useHistory, useLocation } from 'react-router-dom'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
+import ListItemText from '@material-ui/core/ListItemText'
+import { AddCircleOutlineOutlined, SubjectOutlined } from '@material-ui/icons'
 
 const drawerWidth = 240;
 
@@ -18,11 +24,29 @@ const useStyles = makeStyles({
   },
   root: {
     display: 'flex'
+  },
+  active: {
+    backgroundColor: '#f4f4f4'
   }
 });
 
 export default function Layout({ children }) {
   const classes = useStyles();
+  const history = useHistory();
+  const location = useLocation();
+
+  const menuItems = [
+    {
+      text: 'My Notes',
+      icon: <SubjectOutlined color="secondary"/>,
+      path: '/'
+    },
+    {
+      text: 'Create Notes',
+      icon: <AddCircleOutlineOutlined color="secondary"/>,
+      path: '/create'
+    }
+  ];
   
   return ( 
     <div className={classes.root}>
@@ -37,6 +61,28 @@ export default function Layout({ children }) {
             Ninja Notes
           </Typography>
         </div>
+
+        {/* <List>
+          <ListItem>
+            <ListItemText primary="hello"/>
+          </ListItem>
+        </List> */}
+
+        {/* list / links */}
+        <List>
+          {menuItems.map(item => (
+            <ListItem
+              button
+              key={item.text}
+              onClick={() => history.push(item.path)}
+              className={location.pathname === item.path ? classes.active : null}
+            >
+              <ListItemIcon>{item.icon}</ListItemIcon>
+              <ListItemText primary={item.text}/>
+            </ListItem>
+          ))}
+        </List>
+
       </Drawer>
       <div className={classes.page}>
         { children }
