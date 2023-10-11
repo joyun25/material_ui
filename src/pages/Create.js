@@ -1,42 +1,48 @@
 import React from 'react'
-import { Typography, Button, Container } from '@mui/material'
-// import AcUnitOutlinedIcon from '@mui/icons-material/AcUnitOutlined'
-// import SendIcon from '@mui/icons-material/Send'
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
+import Typography from '@material-ui/core/Typography'
+import Button from '@material-ui/core/Button'
+import Container from '@material-ui/core/Container'
+import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight'
+import { makeStyles } from '@material-ui/core'
+
+const useStyles = makeStyles({
+  btn: {
+    fontSize: 60,
+    backgroundColor: 'violet',
+    '&:hover': {
+      backgroundColor: 'blue'
+    }
+  },
+  title: {
+    textDecoration: 'underline',
+    marginBottom: 20
+  }
+});
 
 export default function Create() {
+  const classes = useStyles();
+
   return (
-    <div>
-      <Container>
-        <Typography
-          variant="h6"
-          component="h2"
-          color="textSecondary"
-          gutterBottom
-        >
-          Create a New Note
-        </Typography>
+    <Container size="sm">
+      <Typography
+      className={ classes.title }
+        variant="h6" 
+        color="textSecondary"
+        component="h2"
+        gutterBottom
+      >
+        Create a New Note
+      </Typography>
 
-        <Button
-          type="submit"
-          color="secondary"
-          variant="contained"
-          onClick={() => console.log('you clicked me')}
-          // startIcon={<SendIcon/>}
-          endIcon={<KeyboardArrowRightIcon/>}
-        >
-          Submit
-        </Button>
-
-        {/* icons */}
-        {/* <AcUnitOutlinedIcon/>
-        <AcUnitOutlinedIcon color="secondary" fontSize="large"/>
-        <AcUnitOutlinedIcon color="secondary" fontSize="small"/>
-        <AcUnitOutlinedIcon color="action" fontSize="small"/>
-        <AcUnitOutlinedIcon color="error" fontSize="small"/>
-        <AcUnitOutlinedIcon color="disabled" fontSize="small"/>
-        <br /> */}
-      </Container>
-    </div>
+      <Button
+        className={ classes.btn }
+        onClick={() => console.log('you clicked me')}
+        type="submit" 
+        color="secondary" 
+        variant="contained"
+        endIcon={<KeyboardArrowRightIcon />}>
+        Submit
+      </Button>
+    </Container>
   )
 }
