@@ -8,6 +8,9 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import { AddCircleOutlineOutlined, SubjectOutlined } from '@material-ui/icons'
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import { format } from 'date-fns'
 
 const drawerWidth = 240;
 
@@ -32,6 +35,13 @@ const useStyles = makeStyles((theme) => {
     },
     title: {
       padding: theme.spacing(2)
+    },
+    appbar: {
+      width: `calc(100% - ${drawerWidth}px)`
+    },
+    toolbar: theme.mixins.toolbar,
+    date: {
+      flexGrow: 1
     }
   }
 });
@@ -56,6 +66,23 @@ export default function Layout({ children }) {
   
   return ( 
     <div className={classes.root}>
+
+      {/* app bar */}
+      <AppBar
+        className={classes.appbar}
+        elevation={0}
+      >
+        <Toolbar>
+          <Typography className={classes.date}>
+            Today is the { format(new Date(), 'do MMM Y') }
+          </Typography>
+          <Typography>
+            Mario
+          </Typography>
+        </Toolbar>
+      </AppBar>
+
+      {/* side drawer */}
       <Drawer
         className={classes.drawer}
         variant="permanent"
@@ -70,12 +97,6 @@ export default function Layout({ children }) {
             Ninja Notes
           </Typography>
         </div>
-
-        {/* <List>
-          <ListItem>
-            <ListItemText primary="hello"/>
-          </ListItem>
-        </List> */}
 
         {/* list / links */}
         <List>
@@ -94,6 +115,7 @@ export default function Layout({ children }) {
 
       </Drawer>
       <div className={classes.page}>
+        <div className={classes.toolbar}></div>
         { children }
       </div>
     </div>
